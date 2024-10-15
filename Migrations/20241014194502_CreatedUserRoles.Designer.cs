@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using citt_lms.Model;
 
@@ -11,9 +12,11 @@ using citt_lms.Model;
 namespace citt_lms.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    partial class LMSContextModelSnapshot : ModelSnapshot
+    [Migration("20241014194502_CreatedUserRoles")]
+    partial class CreatedUserRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,24 +25,7 @@ namespace citt_lms.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("citt_lms.Models.Domain.Carrera", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Carrera");
-                });
-
-            modelBuilder.Entity("citt_lms.Models.Domain.Role", b =>
+            modelBuilder.Entity("citt_lms.Model.Domain.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,21 +42,11 @@ namespace citt_lms.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("citt_lms.Models.Domain.User", b =>
+            modelBuilder.Entity("citt_lms.Model.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
-
-                    b.Property<string>("ApellidoMaterno")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ApellidoPaterno")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CarreraId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -82,14 +58,7 @@ namespace citt_lms.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.Property<string>("PrimerNombre")
-                        .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<string>("SegundoNombre")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("SemestreCarrera")
-                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -98,48 +67,40 @@ namespace citt_lms.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarreraId");
-
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("citt_lms.Models.Domain.UserRole", b =>
+            modelBuilder.Entity("citt_lms.Model.Domain.UserRole", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("UserId1")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("UserId1");
+
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("citt_lms.Models.Domain.User", b =>
+            modelBuilder.Entity("citt_lms.Model.Domain.UserRole", b =>
                 {
-                    b.HasOne("citt_lms.Models.Domain.Carrera", "Carrera")
-                        .WithMany()
-                        .HasForeignKey("CarreraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Carrera");
-                });
-
-            modelBuilder.Entity("citt_lms.Models.Domain.UserRole", b =>
-                {
-                    b.HasOne("citt_lms.Models.Domain.Role", "Role")
+                    b.HasOne("citt_lms.Model.Domain.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("citt_lms.Models.Domain.User", "User")
+                    b.HasOne("citt_lms.Model.Domain.User", "User")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -148,7 +109,7 @@ namespace citt_lms.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("citt_lms.Models.Domain.User", b =>
+            modelBuilder.Entity("citt_lms.Model.Domain.User", b =>
                 {
                     b.Navigation("Roles");
                 });
