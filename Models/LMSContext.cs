@@ -6,7 +6,11 @@ public class LMSContext: DbContext
 {
     public LMSContext(DbContextOptions options): base(options) {}
     public DbSet<User> Users { get; set; }
-
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<Carrera> Carreras { get; set; }
+    public DbSet<Taller> Tallers { get; set; }
+    public DbSet<Sesion> Sesiones { get; set;}
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
