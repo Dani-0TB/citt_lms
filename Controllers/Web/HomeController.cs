@@ -15,9 +15,9 @@ public class HomeController : Controller
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [HttpGet, Route("api/version")]
+    public IActionResult Version()
     {
-        return View();
+        return Ok("1.1.1");
     }
 }

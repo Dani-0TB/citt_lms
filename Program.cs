@@ -12,16 +12,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
     // Swagger comfiguration
+} 
+else
+{
     app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json","CITT_WORKSHOP API V1");
-        options.RoutePrefix = string.Empty;
-    });
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -64,14 +62,16 @@ void Configure() {
     });
     builder.Services.AddControllersWithViews();
 
+    builder.Services.AddControllers();
     // Add Swagger Documentarion
-    builder.Services.AddSwaggerGen(options => 
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(/*options => 
     {
-        options.SwaggerDoc("v1", new OpenApiInfo
-        {
-            Title = "CITT_WORKSHOP API",
-            Description = "API for CITT WORKSHOP platform",
-            Version = "v1"
-        });
-    });
+        // options.SwaggerDoc("v1", new OpenApiInfo
+        // {
+        //     Title = "CITT_WORKSHOP API",
+        //     Description = "API for CITT WORKSHOP platform",
+        //     Version = "v1"
+        // });
+    }*/);
 }
