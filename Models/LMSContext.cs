@@ -14,7 +14,7 @@ public class LMSContext: DbContext
     public DbSet<SeccionTaller> SeccionesTaller { get; set; }
     public DbSet<SesionTaller> SesionesTaller { get; set; }
     public DbSet<Sala> Salas { get; set; }
-    
+    public DbSet<Persona> Personas {get; set;}
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

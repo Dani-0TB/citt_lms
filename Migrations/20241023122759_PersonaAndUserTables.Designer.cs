@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using citt_lms.Model;
 
@@ -11,9 +12,11 @@ using citt_lms.Model;
 namespace citt_lms.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    partial class LMSContextModelSnapshot : ModelSnapshot
+    [Migration("20241023122759_PersonaAndUserTables")]
+    partial class PersonaAndUserTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,40 +40,6 @@ namespace citt_lms.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Carreras");
-                });
-
-            modelBuilder.Entity("citt_lms.Models.Domain.Persona", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("ApellidoMaterno")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("ApellidoPaterno")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<DateTime>("FechaIngreso")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("PrimerNombre")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("SegundoNombre")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Personas");
                 });
 
             modelBuilder.Entity("citt_lms.Models.Domain.Role", b =>
