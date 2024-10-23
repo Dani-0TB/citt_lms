@@ -11,6 +11,10 @@ public class LMSContext: DbContext
     public DbSet<Carrera> Carreras { get; set; }
     public DbSet<Taller> Tallers { get; set; }
     public DbSet<Sesion> Sesiones { get; set;}
+    public DbSet<SeccionTaller> SeccionesTaller { get; set; }
+    public DbSet<SesionTaller> SesionesTaller { get; set; }
+    public DbSet<Sala> Salas { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
